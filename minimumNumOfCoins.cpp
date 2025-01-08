@@ -14,14 +14,15 @@ int32_t main() {
     vector<int> coins(nOfCoin);
     for (auto &u : coins) cin >> u;
 
-    vector<int> result(amo + 1);
+    vector<int> result(amo + 1), path(amo + 1);
 
     result[0] = 0;
     for (int x = 1; x <= amo; x++) {
         result[x] = inf;
         for (auto c : coins) {
-            if (x - c >= 0) {
+            if (x - c >= 0 and result[x - c] < result[x]) {
                 result[x] = min(result[x], result[x - c] + 1);
+                path[x] = c;
             }
         }
     }
